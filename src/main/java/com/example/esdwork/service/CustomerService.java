@@ -7,6 +7,8 @@ import com.example.esdwork.repo.CustomerRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class CustomerService {
@@ -16,5 +18,9 @@ public class CustomerService {
         Customer customer = mapper.toEntity(request);
         repo.save(customer);
         return "Created";
+    }
+    public boolean login(String email, String password) {
+        Optional<Customer> customer = repo.findByEmailAndPassword(email, password);
+        return customer.isPresent();
     }
 }
